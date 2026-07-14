@@ -1,0 +1,38 @@
+.team-selector {
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.dashboard-cards {
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stat-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.stat-label {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.chart-card {
+  max-width: 420px;
+}
+
+.chart-wrapper {
+  height: 260px;
+  position: relative;
+}
