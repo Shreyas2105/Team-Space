@@ -8,7 +8,6 @@ const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -37,47 +36,57 @@ const Login = () => {
 
   return (
     <div className="auth-page">
-      <div className="auth-card card">
-        <div className="auth-logo">TeamSpace</div>
-
-        {error && <div className="form-error">{error}</div>}
-        {!error && location.state?.registered && (
-          <div className="form-success">Account created. Please log in.</div>
-        )}
-        {!error && location.state?.passwordChanged && (
-          <div className="form-success">Password changed. Please log in again.</div>
-        )}
-
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="identifier">Username or Email</label>
-            <input
-              id="identifier"
-              type="text"
-              value={identifier}
-              onChange={(event) => setIdentifier(event.target.value)}
-              autoComplete="username"
-            />
+      <div className="auth-layout">
+        <div className="auth-hero">
+          <div className="auth-hero-content">
+            <div className="auth-hero-brand">TeamSpace</div>
+            <p className="auth-hero-copy">
+              Stay aligned with your team, manage projects in one place, and keep every task moving forward.
+            </p>
           </div>
+        </div>
 
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              autoComplete="current-password"
-            />
+        <div className="auth-card card auth-card-right">
+          <div className="auth-logo">TeamSpace</div>
+
+          {error && <div className="form-error">{error}</div>}
+          {!error && location.state?.registered && (
+            <div className="form-success">Account created. Please log in.</div>
+          )}
+          {!error && location.state?.passwordChanged && (
+            <div className="form-success">Password changed. Please log in again.</div>
+          )}
+
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="identifier">Username or Email</label>
+              <input
+                id="identifier"
+                type="text"
+                value={identifier}
+                onChange={(event) => setIdentifier(event.target.value)}
+                autoComplete="username"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                autoComplete="current-password"
+              />
+            </div>
+
+            <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+              {isSubmitting ? "Logging in..." : "Log In"}
+            </button>
+          </form>
+          <div className="auth-footer">
+            Don't have an account? <Link to="/register">Register</Link>
           </div>
-
-          <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-            {isSubmitting ? "Logging in..." : "Log In"}
-          </button>
-        </form>
-
-        <div className="auth-footer">
-          Don't have an account? <Link to="/register">Register</Link>
         </div>
       </div>
     </div>

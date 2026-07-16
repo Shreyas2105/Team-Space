@@ -6,7 +6,7 @@ import { getErrorMessage } from "../utils/getErrorMessage.js";
 import "../styles/profile.css";
 
 const Profile = () => {
-  const { user, setUser } = useAuth();
+  const { user, updateUser, logout } = useAuth();
   const navigate = useNavigate();
 
   const [fullName, setFullName] = useState(user?.fullName || "");
@@ -34,7 +34,7 @@ const Profile = () => {
 
     try {
       const response = await updateProfile({ fullName, username });
-      setUser(response.data.data);
+      updateUser(response.data.data);
       setProfileSuccess("Profile updated successfully");
     } catch (submitError) {
       setProfileError(getErrorMessage(submitError));
@@ -56,7 +56,7 @@ const Profile = () => {
 
     try {
       await changePassword({ oldPassword, newPassword });
-      setUser(null);
+      await logout();
       navigate("/login", { state: { passwordChanged: true } });
     } catch (submitError) {
       setPasswordError(getErrorMessage(submitError));

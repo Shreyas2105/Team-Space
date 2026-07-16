@@ -11,10 +11,14 @@ const AuthProvider = ({ children }) => {
     restoreUser();
   }, []);
 
+  const extractUser = (response) => {
+    return response?.data?.data?.user ?? response?.data?.data ?? null;
+  };
+
   const restoreUser = async () => {
     try {
       const response = await authApi.getCurrentUser();
-      setUser(response.data.data);
+      setUser(extractUser(response));
     } catch (error) {
       setUser(null);
     } finally {
@@ -24,11 +28,15 @@ const AuthProvider = ({ children }) => {
 
   const login = async (identifier, password) => {
     const response = await authApi.login(identifier, password);
-    setUser(response.data.data.user);
+    setUser(extractUser(response));
   };
 
   const register = async (fields) => {
     await authApi.register(fields);
+  };
+
+  const updateUser = (userData) => {
+    setUser(userData);
   };
 
   const logout = async () => {
@@ -41,10 +49,10 @@ const AuthProvider = ({ children }) => {
 
   const value = {
     user,
-    setUser,
     loading,
     login,
     register,
+    updateUser,
     logout,
   };
 
